@@ -23,7 +23,12 @@ todosController.post("/", (req: Request, res: Response) => {
   const todoToSave = todoModel
     .create(todo)
     .then(() => res.status(200))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      if(err.errors.title.path === 'title' && err.errors.title.kind === 'minlength') {
+        res.statusMessage = "Title length too small"
+        res.status(490).json({ error: err.errors.title.message });
+      }
+    });
 });
 
 todosController.post("/:id", (req: Request, res: Response) => {
