@@ -20,9 +20,10 @@ todosController.get("/", async (_req: Request, res: Response) => {
 todosController.post("/", (req: Request, res: Response) => {
   const { todo } = req.body;
 
-  const todoToSave = todoModel.create(todo);
-
-  res.status(200);
+  const todoToSave = todoModel
+    .create(todo)
+    .then(() => res.status(200))
+    .catch((err) => console.log(err));
 });
 
 todosController.post("/:id", (req: Request, res: Response) => {
@@ -51,7 +52,7 @@ todosController.get("/edit/:id", (req: Request, res: Response) => {
 });
 
 todosController.post("/finish/:id", (req: Request, res: Response) => {
-  console.log(req.body.todo)
+  console.log(req.body.todo);
   todoModel
     .findByIdAndUpdate(req.params.id, req.body.todo)
     .then(() => res.status(200))

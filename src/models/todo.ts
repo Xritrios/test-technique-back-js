@@ -7,7 +7,7 @@ export enum TodoStatus {
 }
 
 const todoSchema = new Schema({
-  title: String,
+  title: { type: String, minlength: 8 },
   description: String,
   status: {
     type: String,
