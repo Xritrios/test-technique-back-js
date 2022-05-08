@@ -29,5 +29,23 @@ todosController.post("/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndDelete(req.params.id)
     .then(() => res.status(200))
-    .catch((err) => { console.log(err)});
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+todosController.post("/edit/:id", (req: Request, res: Response) => {
+  todoModel
+    .findByIdAndUpdate(req.params.id, req.body.todo)
+    .then(() => res.status(200))
+    .catch((err) => console.log(err));
+});
+
+todosController.get("/edit/:id", (req: Request, res: Response) => {
+  todoModel
+    .findById(req.params.id)
+    .then((result) => {
+      res.json({ todo: result });
+    })
+    .catch((err) => console.log(err));
 });
