@@ -49,3 +49,11 @@ todosController.get("/edit/:id", (req: Request, res: Response) => {
     })
     .catch((err) => console.log(err));
 });
+
+todosController.post("/finish/:id", (req: Request, res: Response) => {
+  console.log(req.body.todo)
+  todoModel
+    .findByIdAndUpdate(req.params.id, req.body.todo)
+    .then(() => res.status(200))
+    .catch((err) => console.log(err));
+});
