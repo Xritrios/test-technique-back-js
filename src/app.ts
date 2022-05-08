@@ -6,11 +6,7 @@ import { todosController } from "./controllers";
 const PORT = 8080;
 
 async function bootstrapApp(port: number) {
-  await mongoose.connect("mongodb://localhost:27017/todolist", {
-    authSource: "admin",
-    user: "user",
-    pass: "password",
-  });
+  await mongoose.connect("mongodb://localhost:27017/todolist");
 
   const app = express();
 
