@@ -57,7 +57,6 @@ todosController.get("/edit/:id", (req: Request, res: Response) => {
 });
 
 todosController.post("/finish/:id", (req: Request, res: Response) => {
-  console.log(req.body.todo);
   todoModel
     .findByIdAndUpdate(req.params.id, req.body.todo)
     .then(() => res.json())
