@@ -24,3 +24,10 @@ todosController.post("/", (req: Request, res: Response) => {
 
   res.status(200);
 });
+
+todosController.post("/:id", (req: Request, res: Response) => {
+  todoModel
+    .findByIdAndDelete(req.params.id)
+    .then(() => res.status(200))
+    .catch((err) => { console.log(err)});
+});
