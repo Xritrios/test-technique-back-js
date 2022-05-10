@@ -31,7 +31,7 @@ todosController.post("/", (req: Request, res: Response) => {
     });
 });
 
-todosController.post("/:id", (req: Request, res: Response) => {
+todosController.delete("/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndDelete(req.params.id)
     .then(() => res.json())
@@ -40,7 +40,7 @@ todosController.post("/:id", (req: Request, res: Response) => {
     });
 });
 
-todosController.post("/edit/:id", (req: Request, res: Response) => {
+todosController.put("/edit/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndUpdate(req.params.id, req.body.todo)
     .then(() => res.json())
@@ -56,7 +56,7 @@ todosController.get("/edit/:id", (req: Request, res: Response) => {
     .catch((err) => console.log(err));
 });
 
-todosController.post("/finish/:id", (req: Request, res: Response) => {
+todosController.put("/finish/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndUpdate(req.params.id, req.body.todo)
     .then(() => res.json())
