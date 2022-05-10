@@ -35,7 +35,7 @@ describe("REST API TESTS", () => {
       const response = await request(app)
         .post("/todos")
         .send({ todo: validTodo })
-        .expect(200);
+        .expect(201);
       expect(response).toHaveProperty("body");
       expect(response.body).toHaveProperty("todo");
       const { todo } = response.body;

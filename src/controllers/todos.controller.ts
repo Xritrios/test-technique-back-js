@@ -22,7 +22,7 @@ todosController.post("/", (req: Request, res: Response) => {
 
   const todoToSave = todoModel
     .create(todo)
-    .then((result) => res.json({ todo: result }))
+    .then((result) => res.status(201).json({ todo: result }))
     .catch((err) => {
       if (
         err.errors.title.path === "title" &&
