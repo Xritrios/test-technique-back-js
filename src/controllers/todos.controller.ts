@@ -22,10 +22,13 @@ todosController.post("/", (req: Request, res: Response) => {
 
   const todoToSave = todoModel
     .create(todo)
-    .then(() => res.json())
+    .then((result) => res.json({ todo: result }))
     .catch((err) => {
-      if(err.errors.title.path === 'title' && err.errors.title.kind === 'minlength') {
-        res.statusMessage = "Title length too small"
+      if (
+        err.errors.title.path === "title" &&
+        err.errors.title.kind === "minlength"
+      ) {
+        res.statusMessage = "Title length too small";
         res.status(490).json({ error: err.errors.title.message });
       }
     });
@@ -34,7 +37,7 @@ todosController.post("/", (req: Request, res: Response) => {
 todosController.delete("/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndDelete(req.params.id)
-    .then(() => res.json())
+    .then((result) => res.json({ todo: result }))
     .catch((err) => {
       console.log(err);
     });
@@ -42,8 +45,8 @@ todosController.delete("/:id", (req: Request, res: Response) => {
 
 todosController.put("/edit/:id", (req: Request, res: Response) => {
   todoModel
-    .findByIdAndUpdate(req.params.id, req.body.todo)
-    .then(() => res.json())
+    .findByIdAndUpdate(req.params.id, req.body.todo, { new: true })
+    .then((result) => res.json({ todo: result }))
     .catch((err) => console.log(err));
 });
 
@@ -59,6 +62,6 @@ todosController.get("/edit/:id", (req: Request, res: Response) => {
 todosController.put("/finish/:id", (req: Request, res: Response) => {
   todoModel
     .findByIdAndUpdate(req.params.id, req.body.todo)
-    .then(() => res.json())
+    .then((result) => res.json({ todo: result }))
     .catch((err) => console.log(err));
 });

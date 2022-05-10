@@ -5,7 +5,7 @@ import { todosController } from "./controllers";
 
 const PORT = 8080;
 
-async function bootstrapApp(port: number) {
+export async function bootstrapApp(port: number) {
   await mongoose.connect("mongodb://localhost:27017/todolist");
 
   const app = express();
@@ -15,9 +15,13 @@ async function bootstrapApp(port: number) {
 
   app.use("/todos", todosController);
 
-  app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-  });
+  if (process.env.NODE_ENV !== "test") {
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+  }
+
+  return app;
 }
 
 bootstrapApp(PORT);
